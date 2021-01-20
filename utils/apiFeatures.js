@@ -1,3 +1,4 @@
+const Tour = require('./../models/tourModel');
 class APIFeatures {
     constructor(query) {
         this.query = query;
@@ -21,12 +22,9 @@ class APIFeatures {
     }
 
     paginate() {
-        const numberPage = await Tour.countDocuments();
         const page = req.query.page * 1 || 1;
         const limit = req.query.limit * 1 || 10;
         const skip = (page - 1)* limit;
-        // page numbers is greater then existing document in db then throw error
-        if(skip > numberPage) throw new Error("Page does not exist"); 
        
         query = query.skip(skip).limit(limit);
     }
